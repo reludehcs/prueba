@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonajeService {
@@ -20,7 +21,17 @@ public class PersonajeService {
         return repo.findAll();
     }
 
-    public void borrarPersonaje(Integer id) {
-        repo.deleteById(id);
+    public Optional<Personaje> obtenerXID(Integer id) {
+        return repo.findById(id);
+    }
+
+    public boolean borrarPersonaje(Integer id) {
+        try {
+            repo.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }
